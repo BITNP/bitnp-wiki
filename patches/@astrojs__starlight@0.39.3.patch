@@ -1,0 +1,13 @@
+diff --git a/utils/navigation.ts b/utils/navigation.ts
+index 944c3ff4b28410fcdb3d3e1c229367221971b631..185c3fbbfdac9b1c1949a820635242721f74655a 100644
+--- a/utils/navigation.ts
++++ b/utils/navigation.ts
+@@ -224,7 +224,7 @@ function getBreadcrumbs(path: string, baseDir: string): string[] {
+ 		? pathWithoutExt.replace(baseDir, '')
+ 		: pathWithoutExt;
+ 
+-	return relativePath.split('/');
++	return relativePath.replace(/\/index$/, '').split('/');
+ }
+ 
+ /** Return the path of a route relative to the root of the collection. */

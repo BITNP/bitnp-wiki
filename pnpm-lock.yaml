@@ -4,13 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@astrojs/starlight@0.39.3': c17009a333fed643bf825446458b57edbdf7826c93856355099de9e852c11304
+
 importers:
 
   .:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.39.3
-        version: 0.39.3(astro@6.4.4(@types/node@24.13.1)(rollup@4.61.1))
+        version: 0.39.3(patch_hash=c17009a333fed643bf825446458b57edbdf7826c93856355099de9e852c11304)(astro@6.4.4(@types/node@24.13.1)(rollup@4.61.1))
       '@astrojs/vue':
         specifier: ^6.0.1
         version: 6.0.1(@types/node@24.13.1)(astro@6.4.4(@types/node@24.13.1)(rollup@4.61.1))(vue@3.5.35)
@@ -2291,7 +2294,7 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 4.4.3
 
-  '@astrojs/starlight@0.39.3(astro@6.4.4(@types/node@24.13.1)(rollup@4.61.1))':
+  '@astrojs/starlight@0.39.3(patch_hash=c17009a333fed643bf825446458b57edbdf7826c93856355099de9e852c11304)(astro@6.4.4(@types/node@24.13.1)(rollup@4.61.1))':
     dependencies:
       '@astrojs/markdown-remark': 7.2.0
       '@astrojs/mdx': 5.0.6(astro@6.4.4(@types/node@24.13.1)(rollup@4.61.1))
