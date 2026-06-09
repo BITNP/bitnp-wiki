@@ -1,0 +1,176 @@
+---
+title: 疑难杂症
+path: clinic/icu
+description: ICU
+contentType: markdown
+---
+
+# 硬件及驱动相关
+
+## Wi-Fi搜索不到
+
+症状：
+
+- 右下角搜不到 Wifi；
+- `设备管理器` 中无线网卡带感叹号，驱动报错 `代码56`；
+- 重装驱动仍有故障
+
+出现设备：
+
+- 英特尔、联发科无线网卡
+
+解决方案：
+
+> 用 CCleaner，扫描 `注册表` 并清理；重启后正常安装驱动即可。
+
+如果还未解决
+
+> 进入注册表编辑器，删掉注册表 `HKEY_CLASSES_ROOT/CLSID/{3d09c1ca-2bcc-40b7-b9bb-3f3ec143a87b}`，然后重启.
+
+## 启动时随机无法识别无线网卡
+
+症状：
+
+1. 设备管理器中网卡正常，无报错
+2. 任务管理器中找不到 WiFi 网卡
+3. 右下角控制中心找不到 WiFi 选项
+4. 无法识别的情况为有概率出现且重装网卡驱动仍无法解决
+
+解决方法：
+
+- 临时解决方法：运行 Windows 网络诊断显示`Windows networking services might not be runnning as expected`，此时点击下方的`restart network services`，等待一会即可恢复正常
+- **永久解决方法**：
+	1. 先打开 Windows 服务，确保`wlan autoconfig`已设置为自动启动
+  2. 打开注册表，路径为`HKEY_LOCAL-MACHINE\SYSTEM\CurrentControlSet\Services\Wcmsvc`，双击修改`DependOnService`，删除其中的`WinHttpAutoProxySvc`
+  3. 重启电脑即可自动启动`wlan autoconfig`，恢复网络
+
+
+## 没声音
+
+常见于 Intel 处理器的拯救者, 多数情况是设备管理器中 `Intel 智音总线` 的驱动问题. 多数情况下这个设备会有黄色感叹号 (部分时候没有). 
+
+1. 右键这个设备, 选择更新驱动;
+2. 选择在本地查找驱动
+3. 不要选择路径, 选择查看本地驱动 (具体名字我忘了)
+4. 选择列表里较旧的驱动, 逐个尝试是否有用. 
+
+这种方法不一定有用, 暂时有用也不一定一直有用, 总之联想全责. 
+
+## USB驱动异常
+
+症状：
+
+- 所有USB接口失灵
+- 蓝牙无法识别
+- 设备管理器中所有`通用串行总线控制器`下的设备出现黄色感叹号，提示`代码39`
+
+解决方法：
+
+- 对每个出现黄色感叹号的控制器执行:
+1. 在`设备管理器`中右键控制器，选择`属性--详细信息`，在信息栏中选择`驱动程序关键字`，大概记下该值
+2. 打开`注册表编辑器`，转到`HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\<上述关键字>`，关键字一般为`{36fc9e60-c465-11cf-8056-444553540000}`
+3. 删除其中所有名为`upperfilter`和`lowerfilter`的项
+- 重启电脑，随后USB和蓝牙应恢复
+
+# 软件及系统相关
+
+## Windows 蓝屏
+
+见 [系统蓝屏](/clinic/bsod).
+
+## Windows 睡眠相关问题
+
+参考 https://zhuanlan.zhihu.com/p/93306740 .
+
+TO-DO: 把文章内容搬运到 Wiki
+
+## AutoCAD 安装异常
+
+症状：
+
+- 安装 AutoCAD 时报错，提示某些组件安装失败
+- 卸载重装仍有故障。
+
+出现设备
+
+- 常见于曾经安装过 AutoDesk 系列软件的机器
+
+解决方案
+
+- 目前猜测是曾经未正确卸载导致的故障，尝试各种清理均没用。
+- 要么换个版本安装，要么重装系统。
+
+## 英特尔核显驱动异常导致开机后黑屏
+
+症状：
+
+- 开机能正常显示 logo，但是进系统后黑屏，此时大写锁定有反应
+- 开启独显直连后正常进入桌面
+
+解决方式：
+
+1. 进入安全模式 [进入方式](https://www.zhihu.com/question/39606502) （一般多次打断开机就可以）
+2. 打开 DDU，设备选择显卡、厂家为英特尔，卸载核显驱动
+3. 重启后，设备管理器会显示`Microsoft基本显示设备`
+4. 连接网络，让系统自动下载核显驱动
+
+## Multisim找不到数据库
+
+症状：
+
+- 开启 Multisim 后找不到数据库
+- 元件库里面没有默认的仿真器件
+
+> 参考资料：
+[知乎](https://www.zhihu.com/question/1950637239068516704)
+[B站](https://www.bilibili.com/video/BV1JPyHBKEvH/)
+建议多看看评论区各路网友的神秘方法，~~总有一款适合你~~
+
+大概总结有以下几种解决方式：
+
+1. 多次打开，5-6次后就有了
+2. 打开第一次后不关程序，第二次打开就有了
+3. 以管理员身份运行
+4. 卸载 Windows 更新中 KB5065426 安全补丁
+		- 在管理员终端里输入wusa /uninstall /kb:5065426 /quiet /norestart 卸载这个windows更新，再重启就好了
+
+$\infty$. 开一个 Windows 虚拟机（
+~~重装 win10~~
+
+其他碎碎念：
+
+- 实测安装在 sandboxie 沙盒中仍可能找不到数据库，且各种尝试后未果（期待后人解决）
+- 数据库的位置（数字取决于 Multisim 版本号）`C:\ProgramData\National Instruments\Circuit Design Suite\14.0\database`，如果 Multisim 能正确打开，应该有以下文件，尤其是两个 LDB 文件：
+  | 文件名 | 类型 | 大小 |
+  | :--- | :--- | :--- |
+  | CPCOMP_S.PRJ | PRJ 文件 | 570 KB |
+  | MSCOMP_S.PRD | PRD 文件 | 243,876 KB |
+  | MSCOMP_S.ldb | LDB 文件 | 0 KB |
+  | CPCOMP_S.ldb  | LDB 文件 | 0 KB |
+- 这个软件默认装在 C 盘，除非改注册表，否则不能修改安装位置
+
+## 宏碁重装系统
+
+> 如果现有系统是好的，强烈建议直接在 Windwos 下**重置**，或者用**宏碁自己的恢复程序**
+{.is-warning}
+
+[官方方法重置参考链接](https://community.acer.com/cn/kb/articles/18541-win11%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F)
+
+> 以下内容适用于，原系统已损坏或者从一个新盘全新安装 Windows 的情况。
+
+因为宏碁厂商的原因，按照诊所正常流程安装系统会失败（ PE 中结束安装系统重启后会报`inaccessible boot device`），尝试修复 VMD 仍无法解决，因此目前只能按照 B 站 UP 的教程安装**原厂系统**
+
+[B站视频链接](https://bilibili.com/video/BV1ufgxzNEzZ/)
+
+[CF资源链接](https://cf.bitnp.net/guest/System/Others/%E5%AE%8F%E7%A2%81%E5%8E%9F%E5%8E%82%E7%B3%BB%E7%BB%9F)
+
+具体操作流程见视频说明和 CF 中的文档
+
+目前 CF 里只有 `宏碁掠夺者擎Predator PHN16-71` 这一款型号的镜像，其他型号的宏碁按照以下链接自行下载镜像（推荐123云盘，可以单次付费高速下载）
+
+百度网盘：
+[链接]( https://pan.baidu.com/s/5tReO6qcYfLOlOvtFixHJrw)
+
+123云盘：
+[链接](https://www.123912.com/s/KUqDVv-qWtl3?pwd=ycxt#)
+提取码:ycxt

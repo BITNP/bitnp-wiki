@@ -1,0 +1,97 @@
+---
+title: 软件安装教程
+path: clinic/software_install
+description: 不同于排障，此处为完整安装教程
+contentType: markdown
+---
+
+# Solidworks安装教程
+## 卸载
+### 如果是还没开始操作，那么根据下面教程来
+1.打开设置--应用--安装的应用，在里面找到Solidworks
+
+2.在Solidworks右侧点击，卸载
+
+![sw卸载教程1.png](./assets/solidworks_install/sw卸载教程1.png)
+
+3.等待安装管理程序加载
+
+![sw卸载教程2.png](./assets/solidworks_install/sw卸载教程2.png)
+
+4.加载完后，点击高级选项右侧的更改
+
+![sw卸载教程3.png](./assets/solidworks_install/sw卸载教程3.png)
+
+5.把所有框框都勾选上
+
+![sw卸载教程4.png](./assets/solidworks_install/sw卸载教程4.png)
+
+6.勾选完成后点击右下角返回
+
+![sw卸载教程5.png](./assets/solidworks_install/sw卸载教程5.png)
+
+7.确认都勾选上后，点击右下角移除项目
+
+![sw卸载教程6.png](./assets/solidworks_install/sw卸载教程6.png)
+
+一般这样卸载就相对干净了
+
+### 如果是已经卸过但没勾选，也没清理注册表
+1.去寻找几个目录，尽量删除剩余文件
+比如安装路径
+X:\Program Files\Solidworks Crop
+X:\Solidworks Data
+X:\ProgramData\SOLIDWORKS
+X:\ProgramData\SOLIDWORKS Electrical
+C:\Program Files\Common Files\Solidworks Shared
+C:\Program Files (x86)\Common Files\SOLIDWORKS Shared
+C:\Program Files (x86)\Common Files\SOLIDWORKS 安装管理程序
+C:\ProgramData\SOLIDWORKS
+C:\ProgramData\SOLIDWORKS Electrical
+C:\Windows\SolidWorks
+C:\Users\YOGA（用户名）\AppData\Local\SolidWorks
+C:\Users\YOGA（用户名）\AppData\Roaming\SOLIDWORKS
+
+### 其他操作
+> 适用于卸载时忘记勾选高级选项
+
+1.CCleaner扫描注册表并清理，第二步做完后要再清理几次
+2.Everything搜索solidworks相关文件全部删除
+
+# 中文用户名
+
+> 仅适用于电脑安装了很多软件，不便于重装系统，因为仍有可能炸掉
+{.is-warning}
+
+## 仔细按照以下内容操作即可
+
+[你缺失的那门计算机课](https://www.criwits.top/missing/user-and-ms-account.html#%E6%9B%B4%E6%94%B9%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6%E5%A4%B9%E5%90%8D-)
+
+![你缺失的那门计算机课.png](./assets/chinese_username/你缺失的那门计算机课.png)
+
+如果修改原用户文件夹名称时显示被占用，可以进入PE修改
+
+# 正版CAD安装
+## 按照以下教程操作即可
+*学生认证需要每年续一次*
+
+[cad正版学生认证及安装教程.pdf](./assets/cad_install/cad正版学生认证及安装教程.pdf)
+
+以下是图片版：
+
+![cad正版学生认证及安装教程_page-0001.jpg](./assets/cad_install/cad正版学生认证及安装教程_page-0001.jpg)
+
+![cad正版学生认证及安装教程_page-0002.jpg](./assets/cad_install/cad正版学生认证及安装教程_page-0002.jpg)
+
+![cad正版学生认证及安装教程_page-0003.jpg](./assets/cad_install/cad正版学生认证及安装教程_page-0003.jpg)
+
+![cad正版学生认证及安装教程_page-0004.jpg](./assets/cad_install/cad正版学生认证及安装教程_page-0004.jpg)
+
+![cad正版学生认证及安装教程_page-0005.jpg](./assets/cad_install/cad正版学生认证及安装教程_page-0005.jpg)
+
+![cad正版学生认证及安装教程_page-0006.jpg](./assets/cad_install/cad正版学生认证及安装教程_page-0006.jpg)
+
+![cad正版学生认证及安装教程_page-0007.jpg](./assets/cad_install/cad正版学生认证及安装教程_page-0007.jpg)
+
+> **感谢豆比兔gg授权！**
+
