@@ -95,6 +95,32 @@
       color: $grey60;
     }
 
+    .alert {
+      &.is-danger {
+        border-left-color: $redLight;
+        background: rgba($red, 0.15);
+        color: #ff9aa2;
+      }
+
+      &.is-warning {
+        border-left-color: $orange;
+        background: rgba($orange, 0.15);
+        color: #ffb366;
+      }
+
+      &.is-info {
+        border-left-color: $blueLight;
+        background: rgba($blue, 0.15);
+        color: #8ec4ff;
+      }
+
+      &.is-success {
+        border-left-color: #3fb950;
+        background: rgba(#3fb950, 0.15);
+        color: #7ee787;
+      }
+    }
+
     strong {
       color: $grey20;
     }
