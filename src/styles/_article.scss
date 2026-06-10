@@ -108,21 +108,25 @@ article {
 
     &.is-danger {
       border-left-color: $alert-danger-border;
+      background: $alert-danger-bg;
       color: $alert-danger-text;
     }
 
     &.is-warning {
       border-left-color: $alert-warning-border;
+      background: $alert-warning-bg;
       color: $alert-warning-text;
     }
 
     &.is-info {
       border-left-color: $alert-info-border;
+      background: $alert-info-bg;
       color: $alert-info-text;
     }
 
     &.is-success {
       border-left-color: $alert-success-border;
+      background: $alert-success-bg;
       color: $alert-success-text;
     }
   }
