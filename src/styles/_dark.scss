@@ -62,6 +62,26 @@
     }
   }
 
+  .toc-sidebar {
+    .toc-title {
+      color: $grey20;
+    }
+
+    .toc-link {
+      color: $grey80;
+
+      &:hover {
+        color: $grey20;
+        background: $grey150;
+      }
+
+      &.active {
+        color: $blueLight;
+        border-left-color: $blueLight;
+      }
+    }
+  }
+
   article {
     color: white;
 
