@@ -4,11 +4,14 @@ path: clinic/tools-readme
 description: ""
 contentType: markdown
 ---
+import Alert from '../../../src/components/Alert.astro';
+
 
 # 硬盘工具
-> 数据无价 谨慎操作
+<Alert type="danger">
+数据无价 谨慎操作
 避免可能丢失数据的操作
-{.is-danger}
+</Alert>
 
 ## DiskGenius
 
@@ -29,9 +32,10 @@ DG有哪些功能，DG如何使用，使用DG时注意什么
 ### 使用介绍
 
 以下介绍几个简单使用场景
-> 在PE里对硬盘进行操作，一定要提前关闭BitLocker
->同一个分区在硬盘上的位置一定是连续的，不可断开
-{.is-warning}
+<Alert type="warning">
+在PE里对硬盘进行操作，一定要提前关闭BitLocker
+同一个分区在硬盘上的位置一定是连续的，不可断开
+</Alert>
 
 - `硬盘内空间分配`
 可能由于原机硬盘分区不合理，导致C盘过小或其他情况，需要对分区的分配进行操作

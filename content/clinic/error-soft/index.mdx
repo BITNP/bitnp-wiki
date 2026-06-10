@@ -4,6 +4,8 @@ path: clinic/error-soft
 description: Software
 contentType: markdown
 ---
+import Alert from '../../../src/components/Alert.astro';
+
 
 # SolidWorks
 
@@ -24,22 +26,23 @@ contentType: markdown
 
 ### 以Solidworks 2022为例来介绍SW安装过程
 
->电脑上必须要有Office或WPS
->
-> 安装时必须断网。
->
-> 用户名不能为中文
->
-> 电脑设备名不能为中文。
->
-> 关闭所有杀毒软件（如果拿不准，可以下载火绒，再关闭火绒的保护，来间接关掉 defender）
->
-> 如果不准备用 Solidworks 画电路和 PCB，建议取消勾选 `Solidworks Electrical`。
->
-> 在后续安装过程中，可能会报安装管理程序注册xxx.dll时失败/错误，已返回0x3这种，一般关闭重新用管理员运行setup就好了
->
-> 建议启用.NET 3.5（非一定必要，但建议，如果没启用一般也不影响装）
-{.is-warning}
+<Alert type="warning">
+电脑上必须要有Office或WPS
+
+安装时必须断网。
+
+用户名不能为中文
+
+电脑设备名不能为中文。
+
+关闭所有杀毒软件（如果拿不准，可以下载火绒，再关闭火绒的保护，来间接关掉 defender）
+
+如果不准备用 Solidworks 画电路和 PCB，建议取消勾选 `Solidworks Electrical`。
+
+在后续安装过程中，可能会报安装管理程序注册xxx.dll时失败/错误，已返回0x3这种，一般关闭重新用管理员运行setup就好了
+
+建议启用.NET 3.5（非一定必要，但建议，如果没启用一般也不影响装）
+</Alert>
 
 **务必仔细阅读上述注意事项后再开始安装！**
 
@@ -55,7 +58,7 @@ contentType: markdown
 2.解压_SolidSQUAD_.7Z，打开解压后的文件夹
 - 注意关闭后台下载选项。
 
-![no_auto_download.png](./assets/solidworks_install/no_auto_download.png){.align-center}
+![no_auto_download.png](./assets/solidworks_install/no_auto_download.png)
 
 - 注意安装位置
 
@@ -197,8 +200,9 @@ sudo modprobe -v 8852be
 
 `sudo fdisk /dev/<新硬盘设备名>` 检查分区表，确认 EFI 分区类型为 `EFI System`，记住 **EFI分区名**。
 
-> **当且仅当**之前新建了 EFI 分区时才格式化！
-{.is-warning}
+<Alert type="warning">
+**当且仅当**之前新建了 EFI 分区时才格式化！
+</Alert>
 
 `sudo mkfs.vfat -F 16 /dev/<EFI分区名>` 将 EFI 分区格式化为 FAT16。
 
