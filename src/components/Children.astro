@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import { pinyin } from 'pinyin-pro';
+
+const pathname = Astro.url.pathname;
+const cleanPath = pathname.replace(/^\//, '').replace(/\/$/, '');
+const currentId = cleanPath || 'index';
+
+const allDocs = await getCollection('docs');
+
+const prefix = currentId === 'index' ? '' : `${currentId}/`;
+
+const children = allDocs.filter(d => {
+  if (!d.id.startsWith(prefix)) return false;
+  const rest = d.id.slice(prefix.length);
+  return rest.length > 0 && !rest.includes('/');
+});
+
+function getFirstLetter(title: string): string {
+  const firstChar = title.charAt(0);
+  
+  // Check if it's an ASCII letter
+  if (/[a-zA-Z]/.test(firstChar)) {
+    return firstChar.toUpperCase();
+  }
+  
+  // Check if it's a digit
+  if (/\d/.test(firstChar)) {
+    return '#';
+  }
+  
+  // For Chinese characters, use pinyin-pro
+  try {
+    const py = pinyin(firstChar, { pattern: 'first', toneType: 'none' });
+    if (py && py.length > 0) {
+      return py.charAt(0).toUpperCase();
+    }
+  } catch {
+    // fall through
+  }
+  
+  return '?';
+}
+
+// Group by first letter
+const groups = new Map<string, typeof children>();
+
+for (const child of children) {
+  const title = child.data.title || child.id;
+  const letter = getFirstLetter(title);
+  
+  if (!groups.has(letter)) {
+    groups.set(letter, []);
+  }
+  groups.get(letter)!.push(child);
+}
+
+// Sort groups: letters A-Z first, then #, then ?, then other characters
+const sortedGroups = Array.from(groups.entries()).sort((a, b) => {
+  const [letterA, letterB] = [a[0], b[0]];
+  
+  const isLetterA = /[A-Z]/.test(letterA);
+  const isLetterB = /[A-Z]/.test(letterB);
+  
+  if (isLetterA && isLetterB) {
+    return letterA.localeCompare(letterB);
+  }
+  if (isLetterA) return -1;
+  if (isLetterB) return 1;
+  
+  const isSpecialA = letterA === '#' || letterA === '?';
+  const isSpecialB = letterB === '#' || letterB === '?';
+  
+  if (isSpecialA && isSpecialB) {
+    return letterA === '#' ? -1 : 1;
+  }
+  if (isSpecialA) return 1;
+  if (isSpecialB) return -1;
+  
+  return letterA.localeCompare(letterB, 'zh-CN');
+});
+
+// Sort children within each group
+for (const [, groupChildren] of sortedGroups) {
+  groupChildren.sort((a, b) => 
+    (a.data.title || a.id).localeCompare(b.data.title || b.id, 'zh-CN')
+  );
+}
+---
+
+{sortedGroups.length > 0 && (
+  <div class="children-groups">
+    {sortedGroups.map(([letter, groupChildren]) => (
+      <div class="children-group">
+        <div class="children-group-letter">{letter}</div>
+        <ul class="children-list">
+          {groupChildren.map(child => (
+            <li class="children-item">
+              <a href={`/${child.id}/`} class="children-link">
+                {child.data.title || child.id}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+)}

@@ -347,4 +347,52 @@ article {
     margin-top: 0.5em;
     margin-bottom: 1.5em;
   }
+
+  // Children component
+  .children-groups {
+    margin: 1em 0;
+  }
+
+  .children-group {
+    margin-bottom: 1em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .children-group-letter {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $grey130;
+    padding: 4px 0.2em;
+    margin-bottom: 4px;
+  }
+
+  .children-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  .children-item {
+    margin: 0;
+  }
+
+  .children-link {
+    color: $color-link;
+    text-decoration: none;
+    padding: 0.15em 0.2em;
+    transition: all 0.1s;
+
+    &:hover {
+      background-color: $color-link-hover-bg;
+    }
+
+    &:active {
+      color: $blueDark;
+    }
+  }
 }
