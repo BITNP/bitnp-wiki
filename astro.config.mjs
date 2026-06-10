@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import icon from 'astro-icon';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -53,7 +54,7 @@ const contentAssetsPlugin = {
 };
 
 export default defineConfig({
-  integrations: [mdx()],
+  integrations: [mdx(), icon()],
   vite: {
     plugins: [contentAssetsPlugin],
   },

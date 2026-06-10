@@ -9,13 +9,98 @@ body {
   width: $sidebar-width;
   flex-shrink: 0;
   border-right: 1px solid $border-sidebar;
-  overflow-y: auto;
   background: $bg-sidebar;
   font-size: 0.9375rem;
   line-height: 1.5;
   position: sticky;
   top: 0;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .sidebar-header {
+    flex-shrink: 0;
+    height: $toolbar-height;
+    background: $bg-sidebar;
+    border-bottom: 1px solid $border-sidebar;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 12px;
+
+    .sidebar-tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 8px;
+      border: none;
+      background: transparent;
+      color: $grey130;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.1s;
+
+      &:hover {
+        color: $grey200;
+        background: $grey40;
+      }
+
+      &.active {
+        color: $grey200;
+        background: $grey40;
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  .sidebar-panel {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: $grey80 transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+
+      &-thumb {
+        background: $grey80;
+      }
+
+      &-track {
+        background: transparent;
+      }
+    }
+
+    &.active {
+      display: block;
+    }
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: $grey80 transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+
+      &-thumb {
+        background: $grey80;
+      }
+
+      &-track {
+        background: transparent;
+      }
+    }
+  }
 
   a {
     color: $grey200;
@@ -95,19 +180,58 @@ body {
     display: none;
   }
 
-  scrollbar-width: thin;
-  scrollbar-color: $grey80 transparent;
+  .sidebar-search {
+    padding: 12px 8px;
 
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    .search-input {
+      width: 100%;
+      height: 32px;
+      padding: 0 8px;
+      border: 1px solid $border-sidebar;
+      background: $bg-body;
+      color: $grey200;
+      font-size: 0.875rem;
+      font-family: inherit;
+      line-height: 1;
+      margin-bottom: 8px;
 
-    &-thumb {
-      background: $grey80;
+      &::placeholder {
+        color: $grey100;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $blue;
+      }
     }
 
-    &-track {
-      background: transparent;
+    .search-results {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .search-no-results {
+      padding: 8px;
+      color: $grey100;
+      font-size: 0.875rem;
+    }
+
+    .search-result-item {
+      margin: 2px 0;
+    }
+
+    .search-result-link {
+      display: block;
+      padding: 4px 8px;
+      color: $grey200;
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: all 0.1s;
+
+      &:hover {
+        background: $grey20;
+      }
     }
   }
 }
@@ -163,7 +287,7 @@ body {
 
       &:hover {
         color: $grey200;
-        background: $grey20;
+        background: $grey40;
       }
     }
 

@@ -11,7 +11,10 @@
     max-height: 50vh;
     border-right: none;
     border-bottom: 1px solid $border-sidebar;
-    padding: 20px 24px;
+
+    .sidebar-panel {
+      padding: 20px 24px;
+    }
   }
 
   .content {
@@ -41,7 +44,9 @@
   }
 
   .sidebar {
-    padding: 16px;
+    .sidebar-panel {
+      padding: 16px;
+    }
     font-size: 0.875rem;
   }
 

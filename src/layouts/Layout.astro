@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
 import '../styles/index.scss';
 
 interface Props {
@@ -131,7 +132,21 @@ function renderNav(items: NavItem[], depth: number = 0): string {
 </head>
 <body>
   <nav class="sidebar">
-    <Fragment set:html={renderNav(navTree)} />
+    <div class="sidebar-header">
+      <button class="sidebar-tab active" data-tab="nav" aria-label="目录" title="目录">
+        <Icon name="mdi:folder" />
+      </button>
+      <button class="sidebar-tab" data-tab="search" aria-label="搜索" title="搜索">
+        <Icon name="mdi:magnify" />
+      </button>
+    </div>
+    <div class="sidebar-panel sidebar-nav active" data-panel="nav">
+      <Fragment set:html={renderNav(navTree)} />
+    </div>
+    <div class="sidebar-panel sidebar-search" data-panel="search">
+      <input type="text" class="search-input" placeholder="搜索..." aria-label="搜索" />
+      <ul class="search-results"></ul>
+    </div>
   </nav>
   <div class="main-area">
     <header class="top-toolbar">
@@ -168,6 +183,10 @@ function renderNav(items: NavItem[], depth: number = 0): string {
     </div>
   </div>
   <script src="../scripts/nav.ts"></script>
+  <script define:vars={{ searchDocs: docs.map(d => ({ id: d.id, title: d.data.title || d.id, slug: d.id === 'index' ? '/' : `/${d.id}/` })) }}>
+    window.__SEARCH_DOCS__ = searchDocs;
+  </script>
+  <script src="../scripts/sidebar-tabs.ts"></script>
   {mermaid && (
     <script src="../scripts/mermaid.ts"></script>
   )}

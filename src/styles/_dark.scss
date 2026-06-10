@@ -15,7 +15,7 @@
     color: $blueLight;
 
     &:hover {
-      background-color: $grey150;
+      background-color: $grey160;
     }
 
     &:active {
@@ -24,26 +24,76 @@
   }
 
   .sidebar {
-    background: $grey160;
-    border-color: $grey130;
-    scrollbar-color: $grey100 transparent;
+    background: $grey200;
+    border-color: $grey150;
 
-    &::-webkit-scrollbar-thumb {
-      background: $grey100;
+    .sidebar-header {
+      background: $grey200;
+      border-color: $grey150;
+
+      .sidebar-tab {
+        color: $grey80;
+
+        &:hover {
+          color: $grey20;
+          background: $grey160;
+        }
+
+        &.active {
+          color: $grey20;
+          background: $grey160;
+        }
+      }
+    }
+
+    .sidebar-nav {
+      scrollbar-color: $grey100 transparent;
+
+      &::-webkit-scrollbar-thumb {
+        background: $grey100;
+      }
+    }
+
+    .sidebar-search {
+      .search-input {
+        background: $grey220;
+        border-color: $grey150;
+        color: $grey20;
+
+        &::placeholder {
+          color: $grey100;
+        }
+
+        &:focus {
+          border-color: $blueLight;
+        }
+      }
+
+      .search-no-results {
+        color: $grey100;
+      }
+
+      .search-result-link {
+        color: $grey20;
+
+        &:hover {
+          background: $grey160;
+        }
+      }
     }
 
     a {
       color: $grey20;
 
       &:hover {
-        background-color: $grey150;
+        background-color: $grey160;
       }
     }
 
     .nav-link {
       &:hover {
         color: $grey20;
-        background: $grey150;
+        background: $grey160;
       }
 
       &.active {
@@ -57,14 +107,14 @@
 
       &:hover {
         color: $grey20;
-        background: $grey150;
+        background: $grey160;
       }
     }
   }
 
   .top-toolbar {
     background: $grey220;
-    border-color: $grey130;
+    border-color: $grey150;
     color: $grey20;
 
     .breadcrumb-item {
@@ -77,7 +127,7 @@
 
         &:hover {
           color: $grey20;
-          background: $grey150;
+          background: $grey160;
         }
       }
 
@@ -97,7 +147,7 @@
 
       &:hover {
         color: $grey20;
-        background: $grey150;
+        background: $grey160;
       }
 
       &.active {
@@ -111,18 +161,18 @@
     color: white;
 
     h1 {
-      border-color: $grey130;
+      border-color: $grey150;
     }
 
     h2 {
-      border-color: $grey130;
+      border-color: $grey150;
     }
 
     a {
       color: $blueLight;
 
       &:hover {
-        background-color: $grey150;
+        background-color: $grey160;
       }
     }
 
@@ -202,7 +252,8 @@
       border-color: $grey100;
     }
 
-    th, td {
+    th,
+    td {
       border-color: $grey100;
     }
 
@@ -221,7 +272,9 @@
 
   // Print adjustments
   @media print {
-    html, body {
+
+    html,
+    body {
       background: #fff;
       color: #000;
     }
