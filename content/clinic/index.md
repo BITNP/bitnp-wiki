@@ -1,0 +1,7 @@
+---
+title: 电脑诊所
+path: clinic/
+description: 电脑诊所
+contentType: markdown
+---
+

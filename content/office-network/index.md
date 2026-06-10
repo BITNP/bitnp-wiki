@@ -3,6 +3,7 @@ title: 北理桥办公室连接校园网
 path: office-network
 description: 2023年3月31日，网协办公室成功桥接校园网，望周知。
 contentType: markdown
+mermaid: true
 ---
 
 > 2024年9月（或10月），办公室已经可以直连校园网Wi-Fi，此页面提供的方法已经不再使用。
@@ -20,18 +21,18 @@ contentType: markdown
 
 - 由于AP工作于NAT模式，当前所有连接到此Wi-Fi的设备将会消耗当前校园网账号的流量。
 
-  ```mermaid
-  flowchart LR
-  Web[BIT-Web] -.- NP["BITNP_Local(_5G)<br>斐讯K3C"] -.- 您可以连它
-  NP -.- other[办公室的其他人]
-  Web -.- 直接连接校园网的人
-  %% NP --- TP["BITNP_Local_5G_tp<br>TL-WDR8690"] -.- 您也可以连它
-  %% TP -.- other2[办公室的其他人]
-  
-  subgraph login[登录 10.0.0.55]
-    NP
-    直接连接校园网的人
-  end
+```mermaid
+flowchart LR
+Web[BIT-Web] -.- NP["BITNP_Local(_5G)<br>斐讯K3C"] -.- 您可以连它
+NP -.- other[办公室的其他人]
+Web -.- 直接连接校园网的人
+%% NP --- TP["BITNP_Local_5G_tp<br>TL-WDR8690"] -.- 您也可以连它
+%% TP -.- other2[办公室的其他人]
+
+subgraph login[登录 10.0.0.55]
+  NP
+  直接连接校园网的人
+end
   ```
 
 - 请有能力的用户尽量使用局域网代理路由到您的已联校园网的设备上。这可以保护您的隐私，并帮助他人节省流量。

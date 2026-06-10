@@ -1,44 +1,64 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-// https://astro.build/config
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const mimeTypes = {
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.webp': 'image/webp',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
+  '.pdf': 'application/pdf',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+};
+
+function getContentType(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  return mimeTypes[ext] || 'application/octet-stream';
+}
+
+const contentAssetsPlugin = {
+  name: 'content-assets',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if (!req.url || !req.url.includes('/assets/')) {
+        return next();
+      }
+
+      const urlPath = req.url.split('?')[0];
+      const relativePath = urlPath.replace(/^\/+/, '');
+      const filePath = path.join(__dirname, 'content', relativePath);
+      const resolvedFilePath = path.resolve(filePath);
+      const contentDir = path.resolve(__dirname, 'content');
+
+      if (!resolvedFilePath.startsWith(contentDir)) {
+        return next();
+      }
+
+      if (fs.existsSync(resolvedFilePath) && fs.statSync(resolvedFilePath).isFile()) {
+        res.setHeader('Content-Type', getContentType(resolvedFilePath));
+        fs.createReadStream(resolvedFilePath).pipe(res);
+      } else {
+        next();
+      }
+    });
+  }
+};
+
 export default defineConfig({
-	integrations: [
-		starlight({
-			title: 'My Docs',
-			docsDir: 'content',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
-			sidebar: [
-				{
-					label: '诊所',
-					items: [{ autogenerate: { directory: 'clinic' } }],
-				},
-				{
-					label: '首页',
-					items: [{ autogenerate: { directory: 'index' } }],
-				},
-				{
-					label: '面试',
-					items: [{ autogenerate: { directory: 'interview' } }],
-				},
-				{
-					label: '生活',
-					items: [{ autogenerate: { directory: 'live' } }],
-				},
-				{
-					label: '日志',
-					items: [{ autogenerate: { directory: 'log' } }],
-				},
-				{
-					label: '办公网络',
-					items: [{ autogenerate: { directory: 'office-network' } }],
-				},
-				{
-					label: 'WinPE',
-					items: [{ autogenerate: { directory: 'winpe' } }],
-				},
-			],
-		}),
-	],
+  vite: {
+    plugins: [contentAssetsPlugin],
+  },
+  markdown: {
+    syntaxHighlight: {
+      type: 'shiki',
+      excludeLangs: ['mermaid', 'math'],
+    },
+  },
 });

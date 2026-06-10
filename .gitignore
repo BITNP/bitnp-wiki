@@ -20,8 +20,5 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# starlight local source (use pnpm patch instead)
-starlight-source/
-
 # wiki export
 wiki-export/
