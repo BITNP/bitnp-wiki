@@ -35,7 +35,7 @@ BIOS里还有一些选项需要我们注意。首先是安全启动（secure boo
 
 然后是VMD。并不是所有电脑都有VMD这个功能，一般只有使用intel cpu的华硕（包括rog）和机械师品牌的电脑有这个选项。当开启VMD时，我们在windows或ubuntu的安装程序内可能找不到硬盘。因此在给这些品牌电脑装系统前要在bios中检查是否开启了VMD。
 
-> 在关闭VMD、安装好双系统后可能出现在尝试进入原有的windows时蓝屏的情况，此时需要在PE中修复引导，或者采用[一些神秘的解决方法：见INACCESSIBLE_BOOT_DEVICE节](https://wiki.bitnp.net/zh/clinic/bsod)
+> 在关闭VMD、安装好双系统后可能出现在尝试进入原有的windows时蓝屏的情况，此时需要在PE中修复引导，或者采用[一些神秘的解决方法：见INACCESSIBLE_BOOT_DEVICE节](/clinic/bsod)
 
 调整某些BIOS选项，如安全启动、管理员密码都会使windows的pin码失效，恢复BIOS原有设置，或者联网重置pin即可解决。
 
