@@ -12,9 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = visible[0];
       if (!target) return;
 
+      let activeLink: Element | null = null;
       tocLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${target.target.id}`);
+        const isActive = link.getAttribute('href') === `#${target.target.id}`;
+        link.classList.toggle('active', isActive);
+        if (isActive) activeLink = link;
       });
+
+      activeLink!.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     },
     {
       rootMargin: '-80px 0px -70% 0px',
