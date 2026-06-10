@@ -39,22 +39,78 @@
     margin: 0;
   }
 
+  .nav-item {
+    margin: 4px 0;
+  }
+
+  .nav-item-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
   .nav-link {
+    flex: 1;
+    min-width: 0;
     font-weight: 400;
+    display: block;
+    padding: 4px 8px;
+    border-left: 2px solid transparent;
+    transition: all 0.1s;
+
+    &:hover {
+      color: $grey200;
+      background: $grey20;
+    }
 
     &.active {
-      font-weight: bold;
+      font-weight: 500;
       color: $blueDarker;
+      border-left-color: $blueDarker;
     }
   }
+
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: $grey130;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.1s;
+
+    &:hover {
+      color: $grey200;
+      background: $grey20;
+    }
+
+    svg {
+      transition: transform 0.2s;
+    }
+
+    &[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .nav-children[hidden] {
+    display: none;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: $grey80 transparent;
 
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
 
     &-thumb {
-      background: #c1c1c1;
-      border-radius: 3px;
+      background: $grey80;
     }
 
     &-track {

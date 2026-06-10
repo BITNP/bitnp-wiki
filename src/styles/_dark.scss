@@ -26,6 +26,11 @@
   .sidebar {
     background: $grey160;
     border-color: $grey130;
+    scrollbar-color: $grey100 transparent;
+
+    &::-webkit-scrollbar-thumb {
+      background: $grey100;
+    }
 
     a {
       color: $grey20;
@@ -35,8 +40,25 @@
       }
     }
 
-    .nav-link.active {
-      color: $blueLight;
+    .nav-link {
+      &:hover {
+        color: $grey20;
+        background: $grey150;
+      }
+
+      &.active {
+        color: $blueLight;
+        border-left-color: $blueLight;
+      }
+    }
+
+    .nav-toggle {
+      color: $grey80;
+
+      &:hover {
+        color: $grey20;
+        background: $grey150;
+      }
     }
   }
 

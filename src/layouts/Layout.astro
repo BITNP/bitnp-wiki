@@ -57,7 +57,13 @@ function buildNavTree(docs: any[]): NavItem[] {
 }
 
 const navTree = buildNavTree(docs);
-const currentPath = Astro.url.pathname.replace(/^\/|\/$/g, '');
+const currentPath = decodeURIComponent(Astro.url.pathname.replace(/^\/|\/$/g, ''));
+
+function hasActiveDescendant(item: NavItem, currentPath: string): boolean {
+  return item.children.some(child =>
+    child.slug === currentPath || hasActiveDescendant(child, currentPath)
+  );
+}
 
 function renderNav(items: NavItem[], depth: number = 0): string {
   if (items.length === 0) return '';
@@ -67,12 +73,26 @@ function renderNav(items: NavItem[], depth: number = 0): string {
   let html = `<ul class="nav-list" style="padding-left: ${depth === 0 ? 0 : 16}px;">`;
   for (const item of items) {
     const isActive = item.slug === currentPath;
+    const hasChildren = item.children.length > 0;
+    const isExpanded = isActive || hasActiveDescendant(item, currentPath);
     const href = item.slug === '' ? '/' : `/${item.slug}/`;
-    html += `<li style="margin: 4px 0;">`;
-    html += `<a href="${href}" class="nav-link${isActive ? ' active' : ''}">${item.title}</a>`;
-    if (item.children.length > 0) {
+
+    html += `<li class="nav-item${hasChildren ? ' has-children' : ''}">`;
+
+    if (hasChildren) {
+      html += `<div class="nav-item-row">`;
+      html += `<a href="${href}" class="nav-link${isActive ? ' active' : ''}">${item.title}</a>`;
+      html += `<button class="nav-toggle" aria-label="展开/折叠" aria-expanded="${isExpanded ? 'true' : 'false'}">`;
+      html += `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4.5 6 8.5 10 4.5"></polyline></svg>`;
+      html += `</button>`;
+      html += `</div>`;
+      html += `<div class="nav-children"${isExpanded ? '' : ' hidden'}>`;
       html += renderNav(item.children, depth + 1);
+      html += `</div>`;
+    } else {
+      html += `<a href="${href}" class="nav-link${isActive ? ' active' : ''}">${item.title}</a>`;
     }
+
     html += `</li>`;
   }
   html += `</ul>`;
@@ -111,6 +131,7 @@ function renderNav(items: NavItem[], depth: number = 0): string {
       </aside>
     )}
   </div>
+  <script src="../scripts/nav.ts"></script>
   {mermaid && (
     <script src="../scripts/mermaid.ts"></script>
   )}
