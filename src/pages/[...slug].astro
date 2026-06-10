@@ -2,6 +2,16 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
+const componentModules = import.meta.glob('../components/*.astro', { eager: true });
+const components = Object.fromEntries(
+  Object.entries(componentModules)
+    .map(([path, mod]) => {
+      const name = path.match(/\/([^/]+)\.astro$/)?.[1];
+      return name ? [name, (mod as any).default] : null;
+    })
+    .filter(Boolean) as [string, any][]
+);
+
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
 
@@ -17,6 +27,6 @@ const { Content, headings } = await render(doc);
 
 <Layout title={doc.data.title} mermaid={doc.data.mermaid} headings={headings}>
   <article>
-    <Content />
+    <Content components={components} />
   </article>
 </Layout>
