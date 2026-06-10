@@ -1,0 +1,26 @@
+@use 'variables' as *;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 17px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  text-autospace: normal;
+}
+
+body {
+  margin: 0;
+  font-family: $font-sans;
+  font-size: 17px;
+  line-height: 1.45;
+  color: $color-text;
+  background: $bg-body;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  text-rendering: optimizeLegibility;
+}
