@@ -2,7 +2,7 @@
 
 // Wide → single column break
 @media (max-width: $single-col-width) {
-  .container {
+  body {
     flex-direction: column;
   }
 
@@ -34,6 +34,10 @@
 @media (max-width: $small-screen-width) {
   html {
     font-size: 16px;
+  }
+
+  .top-toolbar {
+    padding: 0 16px;
   }
 
   .sidebar {

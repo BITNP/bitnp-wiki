@@ -62,6 +62,31 @@
     }
   }
 
+  .top-toolbar {
+    background: $grey220;
+    border-color: $grey130;
+    color: $grey20;
+
+    .breadcrumb-item {
+      &:not(:last-child)::after {
+        color: $grey100;
+      }
+
+      a {
+        color: $grey80;
+
+        &:hover {
+          color: $grey20;
+          background: $grey150;
+        }
+      }
+
+      span {
+        color: $grey20;
+      }
+    }
+  }
+
   .toc-sidebar {
     .toc-title {
       color: $grey20;

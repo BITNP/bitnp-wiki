@@ -17,7 +17,6 @@ const { Content, headings } = await render(doc);
 
 <Layout title={doc.data.title} mermaid={doc.data.mermaid} headings={headings}>
   <article>
-    <h1>{doc.data.title}</h1>
     <Content />
   </article>
 </Layout>

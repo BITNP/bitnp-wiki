@@ -59,6 +59,28 @@ function buildNavTree(docs: any[]): NavItem[] {
 const navTree = buildNavTree(docs);
 const currentPath = decodeURIComponent(Astro.url.pathname.replace(/^\/|\/$/g, ''));
 
+function getBreadcrumbs(currentPath: string, docs: any[]) {
+  if (!currentPath) return [{ title: '首页', href: '/', isLast: true }];
+
+  const parts = currentPath.split('/');
+  const crumbs = [{ title: '首页', href: '/', isLast: false }];
+  let accumulatedPath = '';
+
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+    accumulatedPath = accumulatedPath ? `${accumulatedPath}/${part}` : part;
+    const isLast = i === parts.length - 1;
+    const doc = docs.find(d => d.id === accumulatedPath);
+    const title = doc?.data?.title || part;
+    const href = `/${accumulatedPath}/`;
+    crumbs.push({ title, href, isLast });
+  }
+
+  return crumbs;
+}
+
+const breadcrumbs = getBreadcrumbs(currentPath, docs);
+
 function hasActiveDescendant(item: NavItem, currentPath: string): boolean {
   return item.children.some(child =>
     child.slug === currentPath || hasActiveDescendant(child, currentPath)
@@ -108,28 +130,42 @@ function renderNav(items: NavItem[], depth: number = 0): string {
   <title>{title}</title>
 </head>
 <body>
-  <div class="container">
-    <nav class="sidebar">
-      <div class="site-title" style="margin-bottom: 20px;">
-        <a href="/">网协Wiki</a>
-      </div>
-      <Fragment set:html={renderNav(navTree)} />
-    </nav>
-    <main class="content">
-      <slot />
-    </main>
-    {tocHeadings.length > 0 && (
-      <aside class="toc-sidebar">
-        <div class="toc-title">目录</div>
-        <ul class="toc-list">
-          {tocHeadings.map(h => (
-            <li class={`toc-item toc-depth-${h.depth}`}>
-              <a href={`#${h.slug}`} class="toc-link">{h.text}</a>
+  <nav class="sidebar">
+    <Fragment set:html={renderNav(navTree)} />
+  </nav>
+  <div class="main-area">
+    <header class="top-toolbar">
+      <nav aria-label="面包屑">
+        <ol class="breadcrumb">
+          {breadcrumbs.map((crumb) => (
+            <li class="breadcrumb-item">
+              {crumb.isLast ? (
+                <span>{crumb.title}</span>
+              ) : (
+                <a href={crumb.href}>{crumb.title}</a>
+              )}
             </li>
           ))}
-        </ul>
-      </aside>
-    )}
+        </ol>
+      </nav>
+    </header>
+    <div class="page-body">
+      <main class="content">
+        <slot />
+      </main>
+      {tocHeadings.length > 0 && (
+        <aside class="toc-sidebar">
+          <div class="toc-title">目录</div>
+          <ul class="toc-list">
+            {tocHeadings.map(h => (
+              <li class={`toc-item toc-depth-${h.depth}`}>
+                <a href={`#${h.slug}`} class="toc-link">{h.text}</a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )}
+    </div>
   </div>
   <script src="../scripts/nav.ts"></script>
   {mermaid && (
