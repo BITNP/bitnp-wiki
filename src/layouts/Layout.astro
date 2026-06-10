@@ -5,9 +5,12 @@ import '../styles/index.scss';
 interface Props {
   title: string;
   mermaid?: boolean;
+  headings?: { depth: number; slug: string; text: string }[];
 }
 
-const { title, mermaid } = Astro.props;
+const { title, mermaid, headings } = Astro.props;
+
+const tocHeadings = headings?.filter(h => h.depth >= 2 && h.depth <= 3) || [];
 
 const docs = await getCollection('docs');
 
@@ -95,9 +98,24 @@ function renderNav(items: NavItem[], depth: number = 0): string {
     <main class="content">
       <slot />
     </main>
+    {tocHeadings.length > 0 && (
+      <aside class="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <ul class="toc-list">
+          {tocHeadings.map(h => (
+            <li class={`toc-item toc-depth-${h.depth}`}>
+              <a href={`#${h.slug}`} class="toc-link">{h.text}</a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    )}
   </div>
   {mermaid && (
     <script src="../scripts/mermaid.ts"></script>
+  )}
+  {tocHeadings.length > 0 && (
+    <script src="../scripts/toc.ts"></script>
   )}
 </body>
 </html>

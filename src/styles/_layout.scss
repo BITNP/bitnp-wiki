@@ -14,6 +14,10 @@
   background: $bg-sidebar;
   font-size: 0.9375rem;
   line-height: 1.5;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: 100vh;
 
   a {
     color: $grey200;
@@ -62,6 +66,70 @@
 .content {
   flex: 1;
   padding: 32px 40px 80px;
-  max-width: $content-max-width;
   min-width: 0;
+  display: flex;
+  justify-content: center;
+
+  > article {
+    width: 100%;
+    max-width: $content-max-width;
+  }
+}
+
+.toc-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  padding: 32px 16px 80px;
+  font-size: 0.75rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: 100vh;
+
+  .toc-title {
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 12px;
+    color: $grey200;
+  }
+
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .toc-item {
+    margin: 4px 0;
+  }
+
+  .toc-depth-3 {
+    padding-left: 12px;
+  }
+
+  .toc-link {
+    display: block;
+    color: $grey130;
+    text-decoration: none;
+    padding: 2px 4px;
+    border-left: 2px solid transparent;
+    transition: all 0.1s;
+
+    &:hover {
+      color: $grey200;
+      background: $grey20;
+    }
+
+    &.active {
+      color: $blueDarker;
+      border-left-color: $blueDarker;
+      font-weight: 500;
+    }
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
