@@ -420,7 +420,17 @@ body {
     }
   }
 
-  .toolbar-sidebar-toggle {
+  .mobile-title {
+    display: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $grey200;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .toolbar-sidebar-toggle, .toolbar-action {
     display: flex;
     align-items: center;
     justify-content: center;

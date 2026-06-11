@@ -117,13 +117,31 @@
     border-color: $grey150;
     color: $grey20;
 
-    .toolbar-sidebar-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .toolbar-sidebar-toggle, .toolbar-action {
       color: $grey80;
 
       &:hover {
         color: $grey20;
         background: $grey160;
       }
+    }
+
+    .mobile-title {
+      color: $grey20;
+    }
+
+    .gap {
+      flex: 1;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .breadcrumb-item {
