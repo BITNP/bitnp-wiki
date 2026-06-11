@@ -28,7 +28,7 @@ const docs = files.map((file) => {
   const text = stripMarkdown(content);
   const title = data.title || '';
   const description = data.description || '';
-  const id = file.replace(/^content\//, '').replace(/\/index\.md$/, '');
+  const id = file.replace(/^content\//, '').replace(/\/index\.mdx?$/, '');
 
   const fullText = `${title} ${description} ${text}`;
   const pinyinText = pinyin(fullText, { toneType: 'none', type: 'string' }).toLowerCase().replace(/\s+/g, '');
