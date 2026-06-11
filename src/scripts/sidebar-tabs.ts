@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
       docGroup.appendChild(header);
 
       // Snippets list
-      const snippets = getDocSnippets(docResult);
+      const snippets = getDocSnippets(docResult, docResult.doc.slug);
       if (snippets.length > 0) {
         const snippetList = document.createElement('ul');
         snippetList.className = 'search-snippet-list';
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
           snippetItem.className = 'search-snippet-item';
 
           const snippetLink = document.createElement('a');
-          snippetLink.href = docResult.doc.slug;
+          snippetLink.href = snippet.url;
           snippetLink.className = 'search-snippet-link';
 
           const snippetText = document.createElement('div');

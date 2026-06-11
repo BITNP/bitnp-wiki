@@ -338,19 +338,25 @@ export async function search(query: string): Promise<DocResult[]> {
   return results;
 }
 
-export function getDocSnippets(docResult: DocResult): Array<{ text: string; isTitle: boolean }> {
-  const snippets: Array<{ text: string; isTitle: boolean }> = [];
+function encodeTextFragment(text: string): string {
+  return encodeURIComponent(text);
+}
+
+export function getDocSnippets(docResult: DocResult, slug: string): Array<{ text: string; isTitle: boolean; url: string }> {
+  const snippets: Array<{ text: string; isTitle: boolean; url: string }> = [];
 
   for (const match of docResult.matches) {
     if (match.key === 'title') {
       const titleSnippet = highlightText(match.text, match.indices);
-      snippets.push({ text: titleSnippet, isTitle: true });
+      snippets.push({ text: titleSnippet, isTitle: true, url: slug });
     } else {
       // Extract multiple snippets for text matches
       const textSnippets = extractSnippets(match.text, match.indices);
       for (const { snippet, highlightStart, highlightEnd } of textSnippets) {
         const highlighted = highlightSnippet(snippet, highlightStart, highlightEnd);
-        snippets.push({ text: highlighted, isTitle: false });
+        const matchedText = snippet.slice(highlightStart, highlightEnd + 1);
+        const url = matchedText ? `${slug}#:~:text=${encodeTextFragment(matchedText)}` : slug;
+        snippets.push({ text: highlighted, isTitle: false, url });
       }
     }
   }
