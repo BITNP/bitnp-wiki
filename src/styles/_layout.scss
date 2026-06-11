@@ -362,6 +362,8 @@ body {
   min-width: 0;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .top-toolbar {
@@ -376,9 +378,6 @@ body {
   font-weight: 600;
   font-size: 1.1rem;
   color: $grey200;
-  position: sticky;
-  top: 0;
-  z-index: 100;
 
   .breadcrumb {
     display: flex;
@@ -447,7 +446,10 @@ body {
 .page-body {
   flex: 1;
   display: flex;
+  align-items: flex-start;
   min-height: 0;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 .content {
@@ -471,7 +473,7 @@ body {
   overflow-y: auto;
   scrollbar-width: none;
   position: sticky;
-  top: $toolbar-height;
+  top: 0;
   align-self: flex-start;
   height: calc(100vh - #{$toolbar-height});
 
