@@ -25,9 +25,13 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 const { Content, headings } = await render(doc);
+
+const editPath = `content/${doc.id}/index.mdx`;
+const editUrl = `https://app.pagescms.org/bitnp/bitnp-wiki/master/collection/pages/edit/${encodeURIComponent(editPath)}`;
+const githubUrl = `https://github.com/bitnp/bitnp-wiki/blob/master/content/${doc.id}/index.mdx`
 ---
 
-<Layout title={doc.data.title} mermaid={doc.data.mermaid} headings={headings}>
+<Layout title={doc.data.title} mermaid={doc.data.mermaid} headings={headings} editUrl={editUrl} githubUrl={githubUrl}>
   <article>
     <Content components={components} />
   </article>
