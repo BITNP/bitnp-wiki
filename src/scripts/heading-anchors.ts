@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     anchor.href = `#${heading.id}`;
     anchor.className = 'heading-anchor';
     const level = parseInt(heading.tagName[1], 10);
-    anchor.textContent = '#'.repeat(level);
+    anchor.textContent = `H${level}`;
     anchor.setAttribute('aria-hidden', 'true');
 
     anchor.addEventListener('click', (e) => {
