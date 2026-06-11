@@ -1,0 +1,56 @@
+media:
+  - name: content_assets
+    label: 内容素材
+    input: content/assets
+    output: /assets
+    rename: safe
+    categories: [image, document]
+
+content:
+  - name: pages
+    label: Wiki 页面
+    type: collection
+    path: content
+    format: yaml-frontmatter
+    filename: index.md
+    subfolders: true
+    exclude:
+      - README.md
+    view:
+      layout: tree
+      node:
+        filename: index.md
+        hideDirs: others
+      fields: [title, description, mermaid]
+      primary: title
+      sort: [title]
+      search: [title, description]
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: description
+        label: 描述
+        type: text
+      - name: mermaid
+        label: 启用 Mermaid 图表
+        type: boolean
+      - name: body
+        label: 正文
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
+          media: content_assets
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      create: "content: create {path}"
+      update: "content: update {path}"
+      delete: "content: delete {path}"
+      rename: "content: rename {oldPath} -> {newPath}"
