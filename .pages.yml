@@ -18,6 +18,7 @@ content:
     view:
       layout: tree
       node:
+        filename: index.mdx
         hideDirs: others
       fields: [title, description, mermaid]
       primary: title

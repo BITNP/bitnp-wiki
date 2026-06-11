@@ -30,10 +30,10 @@ No `test`, `lint`, or `typecheck` scripts exist.
 ## Content Structure
 
 - All pages live under `content/`, **not** `src/content/docs/`.
-- Every page must be `index.md` inside its own directory.
-  - Good: `content/clinic/readme/index.md`
+- Every page must be `index.mdx` inside its own directory.
+  - Good: `content/clinic/readme/index.mdx`
   - Bad: `content/clinic/readme.md`
-- Loader globs `**/index.md` from `./content` (`src/content.config.ts`).
+- Loader globs `**/index.mdx` from `./content` (`src/content.config.ts`).
 - Assets go next to the page in `assets/` (e.g. `content/clinic/readme/assets/`).
 - **Do not** put content assets in `public/` or `src/assets/`.
 - Frontmatter: `title` (required), `path`, `description`, `contentType`, `mermaid: true` (optional).
@@ -57,7 +57,7 @@ No `test`, `lint`, or `typecheck` scripts exist.
 ## Routing
 
 - `src/pages/[...slug].astro` generates static paths from the `docs` collection.
-- Root page is `content/index/index.md` (slug empty → `/`).
+- Root page is `content/index/index.mdx` (slug empty → `/`).
 - `Layout.astro` builds sidebar nav dynamically and sorts with `zh-CN` locale.
 
 ## TypeScript
