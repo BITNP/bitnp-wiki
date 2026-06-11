@@ -117,6 +117,15 @@
     border-color: $grey150;
     color: $grey20;
 
+    .toolbar-sidebar-toggle {
+      color: $grey80;
+
+      &:hover {
+        color: $grey20;
+        background: $grey160;
+      }
+    }
+
     .breadcrumb-item {
       &:not(:last-child)::after {
         color: $grey100;

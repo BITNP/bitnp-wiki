@@ -1,7 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
-import { Icon } from 'astro-icon/components';
-import '../styles/index.scss';
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import "../styles/index.scss";
 
 interface Props {
   title: string;
@@ -11,9 +11,9 @@ interface Props {
 
 const { title, mermaid, headings } = Astro.props;
 
-const tocHeadings = headings?.filter(h => h.depth >= 2 && h.depth <= 3) || [];
+const tocHeadings = headings?.filter((h) => h.depth >= 2 && h.depth <= 3) || [];
 
-const docs = await getCollection('docs');
+const docs = await getCollection("docs");
 
 type NavItem = {
   id: string;
@@ -26,15 +26,15 @@ function buildNavTree(docs: any[]): NavItem[] {
   const root: NavItem[] = [];
 
   for (const doc of docs) {
-    const parts = doc.id.split('/');
+    const parts = doc.id.split("/");
     let current = root;
-    let currentPath = '';
+    let currentPath = "";
 
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
       currentPath = currentPath ? `${currentPath}/${part}` : part;
 
-      let item = current.find(n => n.id === part);
+      let item = current.find((n) => n.id === part);
       if (!item) {
         item = {
           id: part,
@@ -47,7 +47,7 @@ function buildNavTree(docs: any[]): NavItem[] {
 
       if (i === parts.length - 1) {
         item.title = doc.data.title || part;
-        item.slug = doc.id === 'index' ? '' : doc.id;
+        item.slug = doc.id === "index" ? "" : doc.id;
       }
 
       current = item.children;
@@ -58,20 +58,22 @@ function buildNavTree(docs: any[]): NavItem[] {
 }
 
 const navTree = buildNavTree(docs);
-const currentPath = decodeURIComponent(Astro.url.pathname.replace(/^\/|\/$/g, ''));
+const currentPath = decodeURIComponent(
+  Astro.url.pathname.replace(/^\/|\/$/g, ""),
+);
 
 function getBreadcrumbs(currentPath: string, docs: any[]) {
-  if (!currentPath) return [{ title: '首页', href: '/', isLast: true }];
+  if (!currentPath) return [{ title: "首页", href: "/", isLast: true }];
 
-  const parts = currentPath.split('/');
-  const crumbs = [{ title: '首页', href: '/', isLast: false }];
-  let accumulatedPath = '';
+  const parts = currentPath.split("/");
+  const crumbs = [{ title: "首页", href: "/", isLast: false }];
+  let accumulatedPath = "";
 
   for (let i = 0; i < parts.length; i++) {
     const part = parts[i];
     accumulatedPath = accumulatedPath ? `${accumulatedPath}/${part}` : part;
     const isLast = i === parts.length - 1;
-    const doc = docs.find(d => d.id === accumulatedPath);
+    const doc = docs.find((d) => d.id === accumulatedPath);
     const title = doc?.data?.title || part;
     const href = `/${accumulatedPath}/`;
     crumbs.push({ title, href, isLast });
@@ -83,37 +85,38 @@ function getBreadcrumbs(currentPath: string, docs: any[]) {
 const breadcrumbs = getBreadcrumbs(currentPath, docs);
 
 function hasActiveDescendant(item: NavItem, currentPath: string): boolean {
-  return item.children.some(child =>
-    child.slug === currentPath || hasActiveDescendant(child, currentPath)
+  return item.children.some(
+    (child) =>
+      child.slug === currentPath || hasActiveDescendant(child, currentPath),
   );
 }
 
 function renderNav(items: NavItem[], depth: number = 0): string {
-  if (items.length === 0) return '';
+  if (items.length === 0) return "";
 
-  items.sort((a, b) => a.title.localeCompare(b.title, 'zh-CN'));
+  items.sort((a, b) => a.title.localeCompare(b.title, "zh-CN"));
 
   let html = `<ul class="nav-list" style="padding-left: ${depth === 0 ? 0 : 16}px;">`;
   for (const item of items) {
     const isActive = item.slug === currentPath;
     const hasChildren = item.children.length > 0;
     const isExpanded = isActive || hasActiveDescendant(item, currentPath);
-    const href = item.slug === '' ? '/' : `/${item.slug}/`;
+    const href = item.slug === "" ? "/" : `/${item.slug}/`;
 
-    html += `<li class="nav-item${hasChildren ? ' has-children' : ''}">`;
+    html += `<li class="nav-item${hasChildren ? " has-children" : ""}">`;
 
     if (hasChildren) {
       html += `<div class="nav-item-row">`;
-      html += `<a href="${href}" class="nav-link${isActive ? ' active' : ''}">${item.title}</a>`;
-      html += `<button class="nav-toggle" aria-label="展开/折叠" aria-expanded="${isExpanded ? 'true' : 'false'}">`;
+      html += `<a href="${href}" class="nav-link${isActive ? " active" : ""}">${item.title}</a>`;
+      html += `<button class="nav-toggle" aria-label="展开/折叠" aria-expanded="${isExpanded ? "true" : "false"}">`;
       html += `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4.5 6 8.5 10 4.5"></polyline></svg>`;
       html += `</button>`;
       html += `</div>`;
-      html += `<div class="nav-children"${isExpanded ? '' : ' hidden'}>`;
+      html += `<div class="nav-children"${isExpanded ? "" : " hidden"}>`;
       html += renderNav(item.children, depth + 1);
       html += `</div>`;
     } else {
-      html += `<a href="${href}" class="nav-link${isActive ? ' active' : ''}">${item.title}</a>`;
+      html += `<a href="${href}" class="nav-link${isActive ? " active" : ""}">${item.title}</a>`;
     }
 
     html += `</li>`;
@@ -123,73 +126,108 @@ function renderNav(items: NavItem[], depth: number = 0): string {
 }
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-</head>
-<body>
-  <nav class="sidebar">
-    <div class="sidebar-header">
-      <button class="sidebar-tab active" data-tab="nav" aria-label="目录" title="目录">
-        <Icon name="mdi:folder" />
-      </button>
-      <button class="sidebar-tab" data-tab="search" aria-label="搜索" title="搜索">
-        <Icon name="mdi:magnify" />
-      </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <script is:inline>
+      (function () {
+        try {
+          if (localStorage.getItem("bitnp-wiki-sidebar-collapsed") === "true") {
+            document.documentElement.classList.add("sidebar-collapsed");
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <button
+          class="sidebar-tab active"
+          data-tab="nav"
+          aria-label="目录"
+          title="目录"
+        >
+          <Icon name="mdi:folder" />
+        </button>
+        <button
+          class="sidebar-tab"
+          data-tab="search"
+          aria-label="搜索"
+          title="搜索"
+        >
+          <Icon name="mdi:magnify" />
+        </button>
+      </div>
+      <div class="sidebar-panel sidebar-nav active" data-panel="nav">
+        <Fragment set:html={renderNav(navTree)} />
+      </div>
+      <div class="sidebar-panel sidebar-search" data-panel="search">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="搜索..."
+          aria-label="搜索"
+        />
+        <ul class="search-results"></ul>
+      </div>
+    </nav>
+    <div class="main-area">
+      <header class="top-toolbar">
+        <button
+          class="toolbar-sidebar-toggle"
+          aria-label="收起/展开导航"
+          title="收起/展开导航"
+          aria-pressed="false"
+        >
+          <Icon name="mdi:menu-open" />
+        </button>
+        <nav aria-label="面包屑">
+          <ol class="breadcrumb">
+            {
+              breadcrumbs.map((crumb) => (
+                <li class="breadcrumb-item">
+                  {crumb.isLast ? (
+                    <span>{crumb.title}</span>
+                  ) : (
+                    <a href={crumb.href}>{crumb.title}</a>
+                  )}
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      </header>
+      <div class="page-body">
+        <main class="content">
+          <slot />
+        </main>
+        {
+          tocHeadings.length > 0 && (
+            <aside class="toc-sidebar">
+              <div class="toc-title">目录</div>
+              <ul class="toc-list">
+                {tocHeadings.map((h) => (
+                  <li class={`toc-item toc-depth-${h.depth}`}>
+                    <a href={`#${h.slug}`} class="toc-link">
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )
+        }
+      </div>
     </div>
-    <div class="sidebar-panel sidebar-nav active" data-panel="nav">
-      <Fragment set:html={renderNav(navTree)} />
-    </div>
-    <div class="sidebar-panel sidebar-search" data-panel="search">
-      <input type="text" class="search-input" placeholder="搜索..." aria-label="搜索" />
-      <ul class="search-results"></ul>
-    </div>
-  </nav>
-  <div class="main-area">
-    <header class="top-toolbar">
-      <nav aria-label="面包屑">
-        <ol class="breadcrumb">
-          {breadcrumbs.map((crumb) => (
-            <li class="breadcrumb-item">
-              {crumb.isLast ? (
-                <span>{crumb.title}</span>
-              ) : (
-                <a href={crumb.href}>{crumb.title}</a>
-              )}
-            </li>
-          ))}
-        </ol>
-      </nav>
-    </header>
-    <div class="page-body">
-      <main class="content">
-        <slot />
-      </main>
-      {tocHeadings.length > 0 && (
-        <aside class="toc-sidebar">
-          <div class="toc-title">目录</div>
-          <ul class="toc-list">
-            {tocHeadings.map(h => (
-              <li class={`toc-item toc-depth-${h.depth}`}>
-                <a href={`#${h.slug}`} class="toc-link">{h.text}</a>
-              </li>
-            ))}
-          </ul>
-        </aside>
-      )}
-    </div>
-  </div>
-  <script src="../scripts/nav.ts"></script>
-  <script src="../scripts/sidebar-tabs.ts"></script>
-  <script src="../scripts/heading-anchors.ts"></script>
-  {mermaid && (
-    <script src="../scripts/mermaid.ts"></script>
-  )}
-  {tocHeadings.length > 0 && (
-    <script src="../scripts/toc.ts"></script>
-  )}
-</body>
+    <script src="../scripts/nav.ts"></script>
+    <script src="../scripts/sidebar-tabs.ts"></script>
+    <script src="../scripts/sidebar-toggle.ts"></script>
+    <script src="../scripts/heading-anchors.ts"></script>
+    {mermaid && <script src="../scripts/mermaid.ts" />}
+    {tocHeadings.length > 0 && <script src="../scripts/toc.ts" />}
+  </body>
 </html>

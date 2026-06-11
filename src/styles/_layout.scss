@@ -368,6 +368,7 @@ body {
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  gap: 8px;
   height: $toolbar-height;
   padding: 0 24px;
   background: $bg-body;
@@ -417,6 +418,28 @@ body {
       padding: 2px 4px;
       color: $grey200;
       font-weight: 600;
+    }
+  }
+
+  .toolbar-sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    border: none;
+    background: transparent;
+    color: $grey130;
+    cursor: pointer;
+    transition: all 0.1s;
+
+    &:hover {
+      color: $grey200;
+      background: $grey40;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
     }
   }
 }
@@ -496,4 +519,8 @@ body {
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+html.sidebar-collapsed .sidebar {
+  display: none;
 }
