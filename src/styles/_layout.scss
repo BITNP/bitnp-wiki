@@ -430,6 +430,17 @@ body {
     text-overflow: ellipsis;
   }
 
+  .gap {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   .toolbar-sidebar-toggle, .toolbar-action {
     display: flex;
     align-items: center;
