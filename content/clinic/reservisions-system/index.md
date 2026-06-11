@@ -9,4 +9,3 @@ contentType: html
 <ul>
   <li>在后台管理系统中中，点击版本号。</li>
 </ul>
-

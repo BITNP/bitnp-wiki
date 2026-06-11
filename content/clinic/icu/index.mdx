@@ -44,17 +44,16 @@ contentType: markdown
   2. 打开注册表，路径为`HKEY_LOCAL-MACHINE\SYSTEM\CurrentControlSet\Services\Wcmsvc`，双击修改`DependOnService`，删除其中的`WinHttpAutoProxySvc`
   3. 重启电脑即可自动启动`wlan autoconfig`，恢复网络
 
-
 ## 没声音
 
-常见于 Intel 处理器的拯救者, 多数情况是设备管理器中 `Intel 智音总线` 的驱动问题. 多数情况下这个设备会有黄色感叹号 (部分时候没有). 
+常见于 Intel 处理器的拯救者, 多数情况是设备管理器中 `Intel 智音总线` 的驱动问题. 多数情况下这个设备会有黄色感叹号 (部分时候没有).
 
 1. 右键这个设备, 选择更新驱动;
 2. 选择在本地查找驱动
 3. 不要选择路径, 选择查看本地驱动 (具体名字我忘了)
-4. 选择列表里较旧的驱动, 逐个尝试是否有用. 
+4. 选择列表里较旧的驱动, 逐个尝试是否有用.
 
-这种方法不一定有用, 暂时有用也不一定一直有用, 总之联想全责. 
+这种方法不一定有用, 暂时有用也不一定一直有用, 总之联想全责.
 
 ## USB驱动异常
 
@@ -67,9 +66,11 @@ contentType: markdown
 解决方法：
 
 - 对每个出现黄色感叹号的控制器执行:
+
 1. 在`设备管理器`中右键控制器，选择`属性--详细信息`，在信息栏中选择`驱动程序关键字`，大概记下该值
 2. 打开`注册表编辑器`，转到`HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\<上述关键字>`，关键字一般为`{36fc9e60-c465-11cf-8056-444553540000}`
 3. 删除其中所有名为`upperfilter`和`lowerfilter`的项
+
 - 重启电脑，随后USB和蓝牙应恢复
 
 # 软件及系统相关

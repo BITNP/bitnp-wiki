@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "node scripts/build-search-index.js && astro build && node scripts/copy-content-assets.js",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint:md": "markdownlint-cli2 'content/**/*.md' 'content/**/*.mdx' 'src/**/*.md' 'src/**/*.mdx'",
+    "lint:md:fix": "markdownlint-cli2 --fix 'content/**/*.md' 'content/**/*.mdx' 'src/**/*.md' 'src/**/*.mdx'"
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.2",
@@ -24,6 +26,7 @@
     "vue": "^3.5.35"
   },
   "devDependencies": {
+    "markdownlint-cli2": "^0.22.1",
     "sass-embedded": "^1.100.0"
   }
 }

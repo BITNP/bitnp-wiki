@@ -56,13 +56,14 @@ contentType: markdown
 > 最多的时候一晚上来了五六个都是蓝屏这个的 ——wm
 
 其实处理这个问题也很简单，大致就是
+
 1. 多蓝两次然后进安全模式
 2. 在安全模式里禁用 Intel 网卡驱动
 3. 重启就能正常进系统了，再在设备管理器卸载 Intel 网卡设备（同时删除驱动）
 4. 扫描检测硬件改动，如果还出现再卸载一次（一般卸两次就扫不出来了），可以再清一下注册表（一般也不用）
 5. 在 Intel 官网下载新版本网卡驱动，直接安装即可（可以用其他电脑下载好拷过来安装）
 
-## `WHQL` 或 `LESS_OR_EQUAL` 或 `SECURITY` 
+## `WHQL` 或 `LESS_OR_EQUAL` 或 `SECURITY`
 
 > 2020-2022年期间，由于主流供应商大量使用低温焊锡，加上部分厂家广泛使用 “黑胶” 安装方式，大量设备出现 CPU 虚焊现象。
 
@@ -89,7 +90,8 @@ contentType: markdown
 [参考文章](https://www.bilibili.com/opus/993295974168264712)
 
 主要症状为：
-- 进入系统时黑屏无反应或者蓝屏，蓝屏代码显示 `Bad_system_config_info` 
+
+- 进入系统时黑屏无反应或者蓝屏，蓝屏代码显示 `Bad_system_config_info`
 - 安全模式无法进入
 - 进入pe，引导修复无效果，dism++无法正常读取系统分区，提示格式错误
 
@@ -98,18 +100,19 @@ contentType: markdown
 处理方法：
 
 先在恢复环境中，用命令行检查注册表。批量检测注册表损坏的命令：
+
 ```
 for /f %i in ('dir /a:-d-h /b') do echo %i && reg Load HKLM\a %i & reg unLoad HKLM\a
-``` 
+```
 
-bbi、userdiff、vsmidk这些损坏不用管，重要的注册表是：`COMPONENTS`、`default`、`SAM`、`SECURITY`、`SOFTWARE`、`SYSTEM`这些。 
+bbi、userdiff、vsmidk这些损坏不用管，重要的注册表是：`COMPONENTS`、`default`、`SAM`、`SECURITY`、`SOFTWARE`、`SYSTEM`这些。
 
 已知：
+
 1. default、drivers文件损坏可以备份后用恢复环境注册表替换。
 2. software损坏，可以用相同版本系统的software文件在PE里替换（成功率较高），替换后开机自动重建用户配置。
 3. security损坏，用工具修复好的概率很大。
 4. 提示数据错误（循环冗余检查）的，假设系统盘是c盘，则执行chkdsk /f c:，还是同样错误的话，把/f换成/r再执行一遍。
-
 
 **一个参考解决方法**：
 对于SOFRWARE等注册表的非重度损坏（从几十MB变成几百KB那种），找一个正常的注册表，需要来自同版本内核的系统（如Win10，21h2的找内核为NT10的任意版本），复制正常注册表的**前512左右字节**覆盖到损坏注册表，几乎可以完美修复!
@@ -117,7 +120,7 @@ bbi、userdiff、vsmidk这些损坏不用管，重要的注册表是：`COMPONEN
 大部分上述损坏情况的注册表都可以这么修。如用户注册表损坏（具体表现为重启后所有桌面文件丢失）在其他电脑上创建同名称（大小写也要相同）用户后覆盖好的用户注册表前512左右字节到坏的注册表有概率修复。
 
 > 通过实践操作，发现 `SECURITY` 注册表也可以使用该方法完成修复
-
+>
 > 原理参考libregf项目给出的说明，注册表文件格式前512左右字节为注册表的状态检测/校验数据，同版本NT内核的定义是一致的，有很大可能成功交换。
 
 参考python代码（这里写到fix.py里）：
@@ -154,4 +157,3 @@ repair_registry(corrupt_file, good_file, output_file)
 ```
 
 将正常的注册表重命名为 `SECURITY_good` ，有问题的注册表重命名为 `SECURITY_bad`，把这个代码的py文件和两个注册表文件放在同一文件夹下，并在终端运行 `python fix.py` ，用输出的 `SECURITY` 文件替换损坏系统中的原文件，重启即可。
-
