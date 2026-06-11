@@ -12,14 +12,12 @@ content:
     type: collection
     path: content
     format: yaml-frontmatter
-    filename: index.md
     subfolders: true
     exclude:
       - README.md
     view:
       layout: tree
       node:
-        filename: index.md
         hideDirs: others
       fields: [title, description, mermaid]
       primary: title
