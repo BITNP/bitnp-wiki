@@ -7,9 +7,11 @@ interface Props {
   title: string;
   mermaid?: boolean;
   headings?: { depth: number; slug: string; text: string }[];
+  editUrl?: string;
+  githubUrl?: string;
 }
 
-const { title, mermaid, headings } = Astro.props;
+const { title, mermaid, headings, editUrl, githubUrl } = Astro.props;
 
 const tocHeadings = headings?.filter((h) => h.depth >= 2 && h.depth <= 3) || [];
 
@@ -201,6 +203,34 @@ function renderNav(items: NavItem[], depth: number = 0): string {
             }
           </ol>
         </nav>
+        <span class="mobile-title">{title}</span>
+        <div class="gap"></div>
+        <div class="actions">
+          {
+            editUrl && (
+              <button
+                onclick={`window.open('${editUrl}', '_blank')`}
+                class="toolbar-action"
+                aria-label="在 CMS 中编辑"
+                title="在 CMS 中编辑"
+              >
+                <Icon name="mdi:pencil" />
+              </button>
+            )
+          }
+          {
+            githubUrl && (
+              <button
+                onclick={`window.open('${githubUrl}', '_blank')`}
+                class="toolbar-action"
+                aria-label="在 GitHub 中查看"
+                title="在 GitHub 中查看"
+              >
+                <Icon name="mdi:github" />
+              </button>
+            )
+          }
+        </div>
       </header>
       <div class="page-body">
         <main class="content">
