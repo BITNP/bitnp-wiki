@@ -69,8 +69,53 @@
         }
       }
 
+      .search-result-count {
+        color: $grey80;
+        border-bottom-color: $grey150;
+      }
+
+      .search-hint {
+        color: $grey80;
+      }
+
       .search-no-results {
-        color: $grey100;
+        color: $grey80;
+      }
+
+      .search-doc-title {
+        color: $blueLight;
+
+        mark {
+          background: $yellowDark;
+        }
+      }
+
+      .search-doc-match-count {
+        color: $grey80;
+      }
+
+      .search-snippet-link {
+        color: $grey20;
+
+        &:hover {
+          background: $grey160;
+        }
+      }
+
+      .search-snippet-text {
+        color: $grey80;
+
+        mark {
+          background: $yellowDark;
+        }
+      }
+
+      .search-snippet-title {
+        color: $grey20;
+
+        mark {
+          background: $yellowDark;
+        }
       }
 
       .search-result-link {
@@ -78,6 +123,22 @@
 
         &:hover {
           background: $grey160;
+        }
+      }
+
+      .search-result-title {
+        color: $grey20;
+
+        mark {
+          background: $yellowDark;
+        }
+      }
+
+      .search-result-preview {
+        color: $grey80;
+
+        mark {
+          background: $yellowDark;
         }
       }
     }
