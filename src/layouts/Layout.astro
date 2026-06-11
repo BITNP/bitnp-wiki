@@ -183,9 +183,6 @@ function renderNav(items: NavItem[], depth: number = 0): string {
     </div>
   </div>
   <script src="../scripts/nav.ts"></script>
-  <script define:vars={{ searchDocs: docs.map(d => ({ id: d.id, title: d.data.title || d.id, slug: d.id === 'index' ? '/' : `/${d.id}/` })) }}>
-    window.__SEARCH_DOCS__ = searchDocs;
-  </script>
   <script src="../scripts/sidebar-tabs.ts"></script>
   {mermaid && (
     <script src="../scripts/mermaid.ts"></script>

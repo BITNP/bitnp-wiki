@@ -211,19 +211,115 @@ body {
       padding: 0;
     }
 
+    .search-result-count {
+      padding: 4px 8px 8px;
+      color: $grey100;
+      font-size: 0.8125rem;
+      border-bottom: 1px solid $border-sidebar;
+      margin-bottom: 4px;
+    }
+
+    .search-hint {
+      padding: 8px;
+      color: $grey100;
+      font-size: 0.875rem;
+    }
+
     .search-no-results {
       padding: 8px;
       color: $grey100;
       font-size: 0.875rem;
     }
 
+    // Document grouping styles
+    .search-doc-group {
+      margin: 8px 0;
+    }
+
+    .search-doc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+    }
+
+    .search-doc-title {
+      color: $blueDarker;
+      text-decoration: none;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      mark {
+        background: $yellowLight;
+        color: inherit;
+        padding: 0 1px;
+      }
+    }
+
+    .search-doc-match-count {
+      font-size: 0.75rem;
+      color: $grey100;
+      margin-left: 8px;
+      flex-shrink: 0;
+    }
+
+    .search-snippet-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .search-snippet-item {
+      margin: 1px 0;
+    }
+
+    .search-snippet-link {
+      display: block;
+      padding: 4px 8px 4px 16px;
+      color: $grey200;
+      text-decoration: none;
+      font-size: 0.8125rem;
+      transition: all 0.1s;
+      line-height: 1.5;
+
+      &:hover {
+        background: $grey20;
+      }
+    }
+
+    .search-snippet-text {
+      color: $grey130;
+      word-break: break-all;
+
+      mark {
+        background: $yellowLight;
+        color: inherit;
+        padding: 0 1px;
+      }
+    }
+
+    .search-snippet-title {
+      color: $grey200;
+      font-weight: 500;
+
+      mark {
+        background: $yellowLight;
+        color: inherit;
+        padding: 0 1px;
+      }
+    }
+
+    // Legacy styles for backward compatibility
     .search-result-item {
       margin: 2px 0;
     }
 
     .search-result-link {
       display: block;
-      padding: 4px 8px;
+      padding: 6px 8px;
       color: $grey200;
       text-decoration: none;
       font-size: 0.9375rem;
@@ -231,6 +327,31 @@ body {
 
       &:hover {
         background: $grey20;
+      }
+    }
+
+    .search-result-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+      line-height: 1.4;
+
+      mark {
+        background: $yellowLight;
+        color: inherit;
+        padding: 0 1px;
+      }
+    }
+
+    .search-result-preview {
+      font-size: 0.8125rem;
+      color: $grey130;
+      line-height: 1.4;
+      word-break: break-all;
+
+      mark {
+        background: $yellowLight;
+        color: inherit;
+        padding: 0 1px;
       }
     }
   }
