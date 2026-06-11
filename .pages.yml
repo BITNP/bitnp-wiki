@@ -12,6 +12,7 @@ content:
     type: collection
     path: content
     format: yaml-frontmatter
+    filename: index.mdx
     subfolders: true
     exclude:
       - README.md
