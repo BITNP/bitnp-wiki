@@ -3,6 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const headings = document.querySelectorAll('article h2[id], article h3[id]');
   if (!tocLinks.length || !headings.length) return;
 
+  // disable auto scroll when user clicks on a toc link
+  let isOnScroll = false;
+  window.addEventListener('hashchange', () => {
+    isOnScroll = true;
+    setTimeout(() => {
+      isOnScroll = false;
+    }, 500);
+  });
+
   const observer = new IntersectionObserver(
     (entries) => {
       const visible = entries
@@ -19,7 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isActive) activeLink = link;
       });
 
-      activeLink!.scrollIntoView({ behavior: 'smooth', block: 'nearest', container: 'nearest' });
+      if (!isOnScroll) {
+        activeLink!.scrollIntoView({ behavior: 'smooth', block: 'nearest', container: 'nearest' });
+      }
     },
     {
       rootMargin: '-80px 0px -70% 0px',
