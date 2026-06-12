@@ -1,4 +1,13 @@
-import { search, getDocSnippets, escapeHtml } from './search';
+type SearchModule = typeof import('./search');
+
+let searchModulePromise: Promise<SearchModule> | null = null;
+
+function ensureSearchLoaded(): Promise<SearchModule> {
+  if (!searchModulePromise) {
+    searchModulePromise = import('./search');
+  }
+  return searchModulePromise;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.sidebar-tab');
@@ -15,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     if (tabName === 'search' && searchInput) {
       searchInput.focus();
+      ensureSearchLoaded();
     }
   }
 
@@ -38,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchResults.innerHTML = '<li class="search-hint">搜索中...</li>';
 
+    const { search, getDocSnippets } = await ensureSearchLoaded();
     const docResults = await search(query);
 
     searchResults.innerHTML = '';
