@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isActive) activeLink = link;
       });
 
-      activeLink!.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      activeLink!.scrollIntoView({ behavior: 'smooth', block: 'nearest', container: 'nearest' });
     },
     {
       rootMargin: '-80px 0px -70% 0px',
